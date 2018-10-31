@@ -7,6 +7,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
@@ -15,20 +17,20 @@ import android.view.SurfaceView;
 import trofiv.io.a0x4000.R.mipmap;
 
 import static trofiv.io.a0x4000.Logger.LoggerDepth;
-import static trofiv.io.a0x4000.Logger.getLogger;
 
 public final class GameView extends SurfaceView implements Callback {
-    private static final Logger LOGGER = getLogger();
     private final Sprite rectangleSprite;
+    private Drawable spriteDrawable;
     private Thread gameThread;
 
     public GameView(final Context context) {
         super(context);
         //noinspection ThisEscapedInObjectConstruction
         getHolder().addCallback(this);
+        final GestureDetector gd = new GestureDetector(context, new MySimpleOnGestureListener());
+        setOnTouchListener((v, event) -> gd.onTouchEvent(event));
         final Theme theme = context.getTheme();
-        final Drawable spriteDrawable = getResources()
-                .getDrawable(mipmap.ic_launcher_round, theme);
+        spriteDrawable = getResources().getDrawable(mipmap.ic_launcher_round, theme);
         rectangleSprite = new Sprite(drawableToBitmap(spriteDrawable));
         setFocusable(true);
     }
@@ -92,19 +94,51 @@ public final class GameView extends SurfaceView implements Callback {
         Logger.i("x: " + x + ", y: " + y, LoggerDepth.ACTUAL_METHOD);
         //noinspection SwitchStatementWithoutDefaultBranch
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-                rectangleSprite.update(x - rectangleSprite.getBitmap().getWidth() / 2,
-                        y - rectangleSprite.getBitmap().getHeight() / 2);
-                break;
             case MotionEvent.ACTION_MOVE:
-                rectangleSprite.update(x - rectangleSprite.getBitmap().getWidth() / 2,
-                        y - rectangleSprite.getBitmap().getHeight() / 2);
+                rectangleSprite.update(x - rectangleSprite.getImage().getWidth() / 2,
+                        y - rectangleSprite.getImage().getHeight() / 2);
                 break;
-            case MotionEvent.ACTION_UP:
-                rectangleSprite.update(x - rectangleSprite.getBitmap().getWidth() / 2,
-                        y - rectangleSprite.getBitmap().getHeight() / 2);
         }
         this.invalidate();
         return true;
+    }
+
+    private class MySimpleOnGestureListener extends SimpleOnGestureListener {
+        MySimpleOnGestureListener() {
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            //noinspection NumericCastThatLosesPrecision
+            final int x = (int) e.getX();
+            //noinspection NumericCastThatLosesPrecision
+            final int y = (int) e.getY();
+            rectangleSprite.update(x - rectangleSprite.getImage().getWidth() / 2,
+                    y - rectangleSprite.getImage().getHeight() / 2);
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(final MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(final MotionEvent e) {
+            rectangleSprite.scaleUp();
+            //noinspection NumericCastThatLosesPrecision
+            rectangleSprite.update(Bitmap.createScaledBitmap(rectangleSprite.getOriginalImage(),
+                    (int) (rectangleSprite.getOriginalImage().getWidth() * rectangleSprite.getScale()),
+                    (int) (rectangleSprite.getOriginalImage().getHeight() * rectangleSprite.getScale()),
+                    false));
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            rectangleSprite.scaleDown();
+            //noinspection NumericCastThatLosesPrecision
+            rectangleSprite.update(rectangleSprite.getOriginalImage());
+        }
     }
 }

@@ -5,10 +5,13 @@ import android.graphics.Canvas;
 
 public class Sprite {
     private Bitmap image;
+    private Bitmap originalImage;
     private int x;
     private int y;
+    private float scale = 1.0f;
 
     Sprite(final Bitmap image) {
+        this.originalImage = image;
         this.image = image;
     }
 
@@ -21,12 +24,39 @@ public class Sprite {
         this.y = y;
     }
 
+    void scaleUp() {
+        if (this.scale <= 3) {
+            //noinspection MagicNumber
+            this.scale += 0.1f;
+        }
+    }
+
+    void scaleDown() {
+        //noinspection MagicNumber
+        this.scale = 1.0f;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
     public void update(final Bitmap bitmap) {
         this.image = bitmap;
     }
 
-    @SuppressWarnings("SuspiciousGetterSetter")
-    Bitmap getBitmap() {
+    public Bitmap getImage() {
         return image;
+    }
+
+    public Bitmap getOriginalImage() {
+        return originalImage;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
