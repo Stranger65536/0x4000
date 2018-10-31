@@ -8,15 +8,15 @@ public class Sprite {
     private int x;
     private int y;
 
-    public Sprite(final Bitmap image) {
+    Sprite(final Bitmap image) {
         this.image = image;
     }
 
-    public void draw(final Canvas canvas) {
+    void draw(final Canvas canvas) {
         canvas.drawBitmap(image, x, y, null);
     }
 
-    public void update(final int x, final int y) {
+    void update(final int x, final int y) {
         this.x = x;
         this.y = y;
     }
@@ -25,7 +25,8 @@ public class Sprite {
         this.image = bitmap;
     }
 
-    public Bitmap getBitmap() {
+    @SuppressWarnings("SuspiciousGetterSetter")
+    Bitmap getBitmap() {
         return image;
     }
 }
