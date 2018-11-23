@@ -1,4 +1,4 @@
-package trofiv.io.a0x4000;
+package trofiv.io.a0x4000.utils;
 
 import android.util.Log;
 
@@ -17,7 +17,7 @@ public final class Logger {
     private Logger() {
     }
 
-    static Logger getLogger() {
+    public static Logger getLogger() {
         return LoggerLoader.INSTANCE;
     }
 

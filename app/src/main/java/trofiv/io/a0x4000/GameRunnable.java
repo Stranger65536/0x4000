@@ -3,7 +3,8 @@ package trofiv.io.a0x4000;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-import trofiv.io.a0x4000.Logger.LoggerDepth;
+import trofiv.io.a0x4000.utils.Logger;
+import trofiv.io.a0x4000.utils.Logger.LoggerDepth;
 
 public class GameRunnable implements Runnable {
     private static final Logger LOGGER = Logger.getLogger();

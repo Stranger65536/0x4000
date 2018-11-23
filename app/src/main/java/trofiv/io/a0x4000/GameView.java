@@ -15,8 +15,9 @@ import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
 import trofiv.io.a0x4000.R.mipmap;
+import trofiv.io.a0x4000.utils.Logger;
 
-import static trofiv.io.a0x4000.Logger.LoggerDepth;
+import static trofiv.io.a0x4000.utils.Logger.LoggerDepth;
 
 public final class GameView extends SurfaceView implements Callback {
     private final Sprite rectangleSprite;
@@ -34,7 +35,6 @@ public final class GameView extends SurfaceView implements Callback {
         rectangleSprite = new Sprite(drawableToBitmap(spriteDrawable));
         setFocusable(true);
     }
-
 
     public static Bitmap drawableToBitmap(final Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
