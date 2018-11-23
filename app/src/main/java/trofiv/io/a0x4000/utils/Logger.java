@@ -17,10 +17,6 @@ public final class Logger {
     private Logger() {
     }
 
-    public static Logger getLogger() {
-        return LoggerLoader.INSTANCE;
-    }
-
     private static String getTag(final LoggerDepth depth) {
         final StringBuilder stringBuilder = BUILDER_THREAD_LOCAL.get();
         try {
@@ -230,10 +226,5 @@ public final class Logger {
         public int getValue() {
             return value;
         }
-    }
-
-    private enum LoggerLoader {
-        ;
-        private static final Logger INSTANCE = new Logger();
     }
 }

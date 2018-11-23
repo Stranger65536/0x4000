@@ -1,4 +1,4 @@
-package trofiv.io.a0x4000;
+package trofiv.io.a0x4000.drawing;
 
 import android.content.Context;
 import android.content.res.Resources.Theme;
@@ -14,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
+import trofiv.io.a0x4000.GameRunnable;
 import trofiv.io.a0x4000.R.mipmap;
 import trofiv.io.a0x4000.utils.Logger;
 
@@ -108,6 +109,13 @@ public final class GameView extends SurfaceView implements Callback {
         }
 
         @Override
+        public void onLongPress(MotionEvent e) {
+            rectangleSprite.scaleDown();
+            //noinspection NumericCastThatLosesPrecision
+            rectangleSprite.update(rectangleSprite.getOriginalImage());
+        }
+
+        @Override
         public boolean onDown(MotionEvent e) {
             //noinspection NumericCastThatLosesPrecision
             final int x = (int) e.getX();
@@ -115,11 +123,6 @@ public final class GameView extends SurfaceView implements Callback {
             final int y = (int) e.getY();
             rectangleSprite.update(x - rectangleSprite.getImage().getWidth() / 2,
                     y - rectangleSprite.getImage().getHeight() / 2);
-            return true;
-        }
-
-        @Override
-        public boolean onSingleTapConfirmed(final MotionEvent e) {
             return true;
         }
 
@@ -135,10 +138,8 @@ public final class GameView extends SurfaceView implements Callback {
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {
-            rectangleSprite.scaleDown();
-            //noinspection NumericCastThatLosesPrecision
-            rectangleSprite.update(rectangleSprite.getOriginalImage());
+        public boolean onSingleTapConfirmed(final MotionEvent e) {
+            return true;
         }
     }
 }

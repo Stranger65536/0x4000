@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
+import trofiv.io.a0x4000.drawing.GameView;
+
 public class GameActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

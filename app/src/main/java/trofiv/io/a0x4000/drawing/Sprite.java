@@ -1,4 +1,4 @@
-package trofiv.io.a0x4000;
+package trofiv.io.a0x4000.drawing;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

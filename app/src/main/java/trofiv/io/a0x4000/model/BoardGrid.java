@@ -32,6 +32,13 @@ public class BoardGrid {
     }
 
     /**
+     * @return Size of the board
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
      * @return How many rows the game board consists of.
      */
     public int getRowsSize() {
@@ -87,6 +94,7 @@ public class BoardGrid {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("type", type)
+                .add("size", size)
                 .add("items", items)
                 .toString();
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="tile_probabilities">
+        <item>100</item>
+        <item>90</item>
+        <item>10</item>
+        <item>1</item>
+    </integer-array>
+</resources>
