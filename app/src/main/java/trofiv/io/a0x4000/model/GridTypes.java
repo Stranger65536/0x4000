@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Optional;
 
 public enum GridTypes {
@@ -13,13 +14,22 @@ public enum GridTypes {
             Preconditions.checkArgument(size >= 0, "Regular board size must be positive!");
             return new BoardGrid(this, size, new BoardItem[size][size]);
         }
+
+        @Override
+        public EnumSet<SlideDirections> validDirections() {
+            return EnumSet.of(
+                    SlideDirections.RIGHT,
+                    SlideDirections.UP,
+                    SlideDirections.LEFT,
+                    SlideDirections.DOWN);
+        }
     },
     HEXAGON("hexagon") {
         @Override
         public BoardGrid generateBoard(final int size) {
             Preconditions.checkArgument(size >= 0, "Hexagon board size must be positive!");
             if (size == 0) {
-                return new BoardGrid(this, size, new BoardItem[0][0]);
+                return new BoardGrid(this, 0, new BoardItem[0][0]);
             }
             final BoardItem[][] board = new BoardItem[2 * size - 1][];
             for (int i = 0; i < size; i++) {
@@ -27,6 +37,17 @@ public enum GridTypes {
                 board[2 * size - i - 2] = new BoardItem[size + i];
             }
             return new BoardGrid(this, size, board);
+        }
+
+        @Override
+        public EnumSet<SlideDirections> validDirections() {
+            return EnumSet.of(
+                    SlideDirections.RIGHT,
+                    SlideDirections.UP_RIGHT,
+                    SlideDirections.UP_LEFT,
+                    SlideDirections.LEFT,
+                    SlideDirections.DOWN_LEFT,
+                    SlideDirections.DOWN_RIGHT);
         }
     };
 
@@ -47,6 +68,8 @@ public enum GridTypes {
     }
 
     public abstract BoardGrid generateBoard(final int size);
+
+    public abstract EnumSet<SlideDirections> validDirections();
 
     public String getValue() {
         return value;
