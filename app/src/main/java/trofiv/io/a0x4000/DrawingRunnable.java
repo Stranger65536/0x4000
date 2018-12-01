@@ -7,11 +7,11 @@ import trofiv.io.a0x4000.drawing.GameView;
 import trofiv.io.a0x4000.utils.Logger;
 import trofiv.io.a0x4000.utils.Logger.LoggerDepth;
 
-public class GameRunnable implements Runnable {
+public class DrawingRunnable implements Runnable {
     private final SurfaceHolder surfaceHolder;
     private final GameView gameView;
 
-    public GameRunnable(final SurfaceHolder surfaceHolder, final GameView gameView) {
+    public DrawingRunnable(final SurfaceHolder surfaceHolder, final GameView gameView) {
         this.surfaceHolder = surfaceHolder;
         this.gameView = gameView;
     }
