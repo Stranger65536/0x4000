@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">0x4000</string>
     <string name="title">0x4000</string>
+    <string name="classicModeButtonText">Classic mode</string>
 </resources>

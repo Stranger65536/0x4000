@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="background">#FAF8EF</color>
     <color name="titleColor">#766E65</color>
+    <color name="gameButtonBackgroundColor">#E7C743</color>
+    <color name="gameButtonTextColor">#F7F5F1</color>
 </resources>

@@ -1,7 +1,5 @@
 package trofiv.io.a0x4000.drawing.common;
 
-import android.graphics.Canvas;
-
 public abstract class AbstractDrawable implements Drawable {
     /**
      * Position of the button from the top. If not specified, vertical position is calculated
@@ -123,81 +121,69 @@ public abstract class AbstractDrawable implements Drawable {
         }
     }
 
-    public int width(final Canvas canvas) {
-        synchronized (this) {
-            if (width != null) {
-                return width;
-            } else if (left != null && right != null) {
-                return Math.abs(canvas.getWidth() - left - right);
-            } else {
-                throw new IllegalStateException("Either width or left with right " +
-                        "must be specified for width calculation! Object: " + this);
-            }
+    public int width() {
+        if (width != null) {
+            return width;
+        } else if (left != null && right != null) {
+            return right - left;
+        } else {
+            throw new IllegalStateException("Either width or left with right " +
+                    "must be specified for width calculation! Object: " + this);
         }
     }
 
-    public int height(final Canvas canvas) {
-        synchronized (this) {
-            if (height != null) {
-                return height;
-            } else if (top != null && bottom != null) {
-                return Math.abs(canvas.getHeight() - top - bottom);
-            } else {
-                throw new IllegalStateException("Either height or top with bottom " +
-                        "must be specified for height calculation! Object: " + this);
-            }
+    public int height() {
+        if (height != null) {
+            return height;
+        } else if (top != null && bottom != null) {
+            return bottom - top;
+        } else {
+            throw new IllegalStateException("Either height or top with bottom " +
+                    "must be specified for height calculation! Object: " + this);
         }
     }
 
-    public int left(final Canvas canvas) {
-        synchronized (this) {
-            if (left != null) {
-                return left;
-            } else if (right != null && width != null) {
-                return Math.abs(canvas.getWidth() - right - width);
-            } else {
-                throw new IllegalStateException("Either left or right with width " +
-                        "must be specified for left calculation! Object: " + this);
-            }
+    public int left() {
+        if (left != null) {
+            return left;
+        } else if (right != null && width != null) {
+            return right - width;
+        } else {
+            throw new IllegalStateException("Either left or right with width " +
+                    "must be specified for left calculation! Object: " + this);
         }
     }
 
-    public int right(final Canvas canvas) {
-        synchronized (this) {
-            if (right != null) {
-                return right;
-            } else if (left != null && width != null) {
-                return Math.abs(canvas.getWidth() - left - width);
-            } else {
-                throw new IllegalStateException("Either right or left with width " +
-                        "must be specified for right calculation! Object: " + this);
-            }
+    public int right() {
+        if (right != null) {
+            return right;
+        } else if (left != null && width != null) {
+            return left + width;
+        } else {
+            throw new IllegalStateException("Either right or left with width " +
+                    "must be specified for right calculation! Object: " + this);
         }
     }
 
-    public int top(final Canvas canvas) {
-        synchronized (this) {
-            if (top != null) {
-                return top;
-            } else if (bottom != null && height != null) {
-                return Math.abs(canvas.getHeight() - bottom - height);
-            } else {
-                throw new IllegalStateException("Either top or bottom with height " +
-                        "must be specified for top calculation! Object: " + this);
-            }
+    public int top() {
+        if (top != null) {
+            return top;
+        } else if (bottom != null && height != null) {
+            return bottom - height;
+        } else {
+            throw new IllegalStateException("Either top or bottom with height " +
+                    "must be specified for top calculation! Object: " + this);
         }
     }
 
-    public int bottom(final Canvas canvas) {
-        synchronized (this) {
-            if (bottom != null) {
-                return bottom;
-            } else if (top != null && height != null) {
-                return Math.abs(canvas.getHeight() - top - height);
-            } else {
-                throw new IllegalStateException("Either bottom or top with height " +
-                        "must be specified for bottom calculation! Object: " + this);
-            }
+    public int bottom() {
+        if (bottom != null) {
+            return bottom;
+        } else if (top != null && height != null) {
+            return top + height;
+        } else {
+            throw new IllegalStateException("Either bottom or top with height " +
+                    "must be specified for bottom calculation! Object: " + this);
         }
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
 import trofiv.io.a0x4000.R.color;
+import trofiv.io.a0x4000.drawing.common.Button;
 import trofiv.io.a0x4000.drawing.common.Drawable;
 import trofiv.io.a0x4000.drawing.common.Label;
 import trofiv.io.a0x4000.model.MenuModel;
@@ -15,6 +16,7 @@ public class Menu implements Drawable {
     private final Context context;
     private final Paint backgroundPaint;
     private final Label title;
+    private final Button classicModeButton;
 
     Menu(final Context context, final MenuModel menuModel) {
         this.context = context;
@@ -24,12 +26,14 @@ public class Menu implements Drawable {
         backgroundPaint.setColor(backgroundColor);
         backgroundPaint.setStyle(Style.FILL);
         this.title = menuModel.getTitle();
+        this.classicModeButton = menuModel.getClassicModeButton();
     }
 
     @Override
     public void draw(final Canvas canvas) {
         drawBackground(canvas);
         title.draw(canvas);
+        classicModeButton.draw(canvas);
     }
 
     private void drawBackground(final Canvas canvas) {
