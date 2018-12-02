@@ -60,7 +60,7 @@ public class MenuModel extends AbstractModel {
         final int width = getWidth();
         final int height = getHeight();
         alignTitle(width, height);
-        alignClassicModeButton(width);
+        alignClassicModeButton(width, height);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class MenuModel extends AbstractModel {
             final int height) {
         super.surfaceChanged(holder, format, width, height);
         alignTitle(width, height);
-        alignClassicModeButton(width);
+        alignClassicModeButton(width, height);
     }
 
     @Override
@@ -79,11 +79,11 @@ public class MenuModel extends AbstractModel {
         super.surfaceDestroyed(holder);
     }
 
-    private void alignClassicModeButton(final int width) {
+    private void alignClassicModeButton(final int width, final int height) {
         synchronized (classicModeButton) {
             classicModeButton.setLeft((int) (width * 0.15f));//TODO to resources
             classicModeButton.setWidth((int) (width * 0.7f));//TODO to resources
-            classicModeButton.setTop((int) (width * 0.55f));//TODO to resources
+            classicModeButton.setTop((int) (title.bottom() + height * 0.15f));//TODO to resources
             classicModeButton.setHeight((int) (width * 0.15f));//TODO to resources
             classicModeButton.setRx(10);//TODO depends on size, to resources
             classicModeButton.setRy(10);//TODO depends on size, to resources
@@ -103,8 +103,8 @@ public class MenuModel extends AbstractModel {
                 label.setTextSizeForHeight(classicModeButton.height() * 0.3f);//TODO to resources
                 label.setLeft((int) (classicModeButton.left()
                         + classicModeButton.width() / 2.0f - label.width() / 2.0f));//TODO to resources
-                label.setTop((int) (classicModeButton.bottom()
-                        - classicModeButton.height() * 0.35f));//TODO to resources
+                label.setTop((int) (classicModeButton.top()
+                        + classicModeButton.height() * 0.35f));//TODO to resources
             }
         }
     }
@@ -113,7 +113,7 @@ public class MenuModel extends AbstractModel {
         synchronized (title) {
             title.setTextSizeForWidth(width * 0.6f);//TODO to resources
             title.setLeft((int) (width * 0.2f));//TODO to resources
-            title.setTop((int) (title.getHeight() + height * 0.2f)); //TODO to resource
+            title.setTop((int) (height * 0.15f)); //TODO to resource
         }
     }
 

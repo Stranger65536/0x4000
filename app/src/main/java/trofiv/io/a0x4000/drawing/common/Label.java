@@ -95,7 +95,7 @@ public class Label extends AbstractDrawable {
     @Override
     public void draw(final Canvas canvas) {
         synchronized (this) {
-            canvas.drawText(text, getLeft() - xPosCorrection, getTop() - yPosCorrection, style);
+            canvas.drawText(text, left() - xPosCorrection, bottom() - yPosCorrection, style);
         }
     }
 }
