@@ -1,9 +1,13 @@
 package trofiv.io.a0x4000.model;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.view.GestureDetector.SimpleOnGestureListener;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import trofiv.io.a0x4000.R.color;
@@ -19,12 +23,43 @@ public class MenuModel extends AbstractModel {
     private final Label title;
     private final Button classicModeButton;
     private final Drawable classicButtonDrawable;
+    private final SimpleOnGestureListener onGestureListener;
 
     public MenuModel(final Context context) {
         classicButtonDrawable = context.getResources().getDrawable(
                 drawable.classic_mode_icon_240dp, context.getTheme());
         title = initTitle(context);
         classicModeButton = initClassicModeButton(context);
+        onGestureListener = new SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(final MotionEvent e) {
+                classicModeButton.onButtonBlurAnimation();
+                if (isButtonEvent(classicModeButton, e)) {
+                    //TODO change view
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onDown(final MotionEvent e) {
+                if (isButtonEvent(classicModeButton, e)) {
+                    classicModeButton.onButtonPressAnimation();
+                }
+                return true;
+            }
+        };
+    }
+
+    private static boolean isButtonEvent(final Button button, final MotionEvent e) {
+        final float x = e.getX();
+        final float y = e.getY();
+        final int top = button.top();
+        final int bottom = button.bottom();
+        final int left = button.left();
+        final int right = button.right();
+        //noinspection OverlyComplexBooleanExpression
+        return x >= left && x <= right && y >= top && y <= bottom;
+
     }
 
     private static Label initTitle(final Context context) {
@@ -43,6 +78,30 @@ public class MenuModel extends AbstractModel {
         final Paint backgroundStyle = button.getBackgroundStyle();
         backgroundStyle.setColor(context.getResources()
                 .getColor(color.gameButtonBackgroundColor, context.getTheme()));
+        final Paint backgroundHoverStyle = button.getBackgroundHoverStyle();
+        backgroundHoverStyle.setColor(context.getResources()
+                .getColor(color.gameButtonBackgroundHoverColor, context.getTheme()));
+        final Paint backgroundCurrentStyle = button.getCurrentBackgroundStyle();
+        backgroundCurrentStyle.setColor(context.getResources()
+                .getColor(color.gameButtonBackgroundColor, context.getTheme()));
+        button.setTransitionDuration(250);//TODO to resources
+
+        final ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
+        animator.setDuration(button.getTransitionDuration());
+        final float[] hsv = new float[3];
+        Color.colorToHSV(button.getCurrentBackgroundStyle().getColor(), hsv);
+        final float[] from = new float[3];
+        Color.colorToHSV(button.getBackgroundStyle().getColor(), from);
+        final float[] to = new float[3];
+        Color.colorToHSV(button.getBackgroundHoverStyle().getColor(), to);
+        animator.addUpdateListener(a -> {
+            hsv[0] = from[0] + (to[0] - from[0]) * a.getAnimatedFraction();
+            hsv[1] = from[1] + (to[1] - from[1]) * a.getAnimatedFraction();
+            hsv[2] = from[2] + (to[2] - from[2]) * a.getAnimatedFraction();
+            button.getCurrentBackgroundStyle().setColor(Color.HSVToColor(hsv));
+        });
+        button.setAnimator(animator);
+
         final Icon icon = button.getIcon();
         icon.setDrawable(classicButtonDrawable);
         final Label label = button.getLabel();
@@ -107,6 +166,10 @@ public class MenuModel extends AbstractModel {
                         + classicModeButton.height() * 0.35f));//TODO to resources
             }
         }
+    }
+
+    public SimpleOnGestureListener getOnGestureListener() {
+        return onGestureListener;
     }
 
     private void alignTitle(final int width, final int height) {
