@@ -38,87 +38,59 @@ public abstract class AbstractDrawable implements Drawable {
     private int zIndex;
 
     public Integer getLeft() {
-        synchronized (this) {
-            return left;
-        }
+        return left;
     }
 
     public void setLeft(final Integer left) {
-        synchronized (this) {
-            this.left = left;
-        }
+        this.left = left;
     }
 
     public Integer getTop() {
-        synchronized (this) {
-            return top;
-        }
+        return top;
     }
 
     public void setTop(final Integer top) {
-        synchronized (this) {
-            this.top = top;
-        }
+        this.top = top;
     }
 
     public Integer getBottom() {
-        synchronized (this) {
-            return bottom;
-        }
+        return bottom;
     }
 
     public void setBottom(final Integer bottom) {
-        synchronized (this) {
-            this.bottom = bottom;
-        }
+        this.bottom = bottom;
     }
 
     public Integer getRight() {
-        synchronized (this) {
-            return right;
-        }
+        return right;
     }
 
     public void setRight(final Integer right) {
-        synchronized (this) {
-            this.right = right;
-        }
+        this.right = right;
     }
 
     public Integer getWidth() {
-        synchronized (this) {
-            return width;
-        }
+        return width;
     }
 
     public void setWidth(final Integer width) {
-        synchronized (this) {
-            this.width = width;
-        }
+        this.width = width;
     }
 
     public Integer getHeight() {
-        synchronized (this) {
-            return height;
-        }
+        return height;
     }
 
     public void setHeight(final Integer height) {
-        synchronized (this) {
-            this.height = height;
-        }
+        this.height = height;
     }
 
     public int getZIndex() {
-        synchronized (this) {
-            return zIndex;
-        }
+        return zIndex;
     }
 
     public void setZIndex(final int zIndex) {
-        synchronized (this) {
-            this.zIndex = zIndex;
-        }
+        this.zIndex = zIndex;
     }
 
     public int width() {

@@ -19,25 +19,25 @@ public class DrawingRunnable implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            Canvas canvas = null;
-
+            final Canvas canvas;
             try {
                 canvas = this.surfaceHolder.lockCanvas();
-                if (canvas == null) {
-                    return;
-                }
-                synchronized (surfaceHolder) {
-                    this.gameView.draw(canvas);
-                }
             } catch (Exception e) {
                 Logger.e("Can't obtain canvas!", e, LoggerDepth.ACTUAL_METHOD);
+                continue;
+            }
+            if (canvas == null) {
+                continue;
+            }
+            try {
+                this.gameView.draw(canvas);
+            } catch (Exception e) {
+                Logger.e("Can't draw surface!", e, LoggerDepth.ACTUAL_METHOD);
             } finally {
-                if (canvas != null) {
-                    try {
-                        surfaceHolder.unlockCanvasAndPost(canvas);
-                    } catch (Exception e) {
-                        Logger.e("Can't release canvas!", e, LoggerDepth.ACTUAL_METHOD);
-                    }
+                try {
+                    surfaceHolder.unlockCanvasAndPost(canvas);
+                } catch (Exception e) {
+                    Logger.e("Can't release canvas!", e, LoggerDepth.ACTUAL_METHOD);
                 }
             }
         }

@@ -12,48 +12,38 @@ public class AbstractModel implements Callback {
     private int height;
 
     private void waitCanvasInitialization(final SurfaceHolder holder) {
-        //noinspection BooleanVariableAlwaysNegated
-        boolean initialized = false;
-        while (!initialized) {
+        while (true) {
             Canvas canvas = null;
             try {
                 canvas = holder.lockCanvas();
-                if (canvas == null) {
-                    return;
-                }
-                //noinspection SynchronizationOnLocalVariableOrMethodParameter
-                synchronized (holder) {
-                    //noinspection NestedSynchronizedStatement
-                    synchronized (this) {
-                        this.width = canvas.getWidth();
-                        this.height = canvas.getHeight();
-                    }
-                    initialized = true;
-                }
             } catch (Exception e) {
                 Logger.e("Can't obtain canvas!", e, LoggerDepth.ACTUAL_METHOD);
+            }
+            if (canvas == null) {
+                continue;
+            }
+            try {
+                this.width = canvas.getWidth();
+                this.height = canvas.getHeight();
+                break;
+            } catch (Exception e) {
+                Logger.e("Can't draw canvas!", e, LoggerDepth.ACTUAL_METHOD);
             } finally {
-                if (canvas != null) {
-                    try {
-                        holder.unlockCanvasAndPost(canvas);
-                    } catch (Exception e) {
-                        Logger.e("Can't release canvas!", e, LoggerDepth.ACTUAL_METHOD);
-                    }
+                try {
+                    holder.unlockCanvasAndPost(canvas);
+                } catch (Exception e) {
+                    Logger.e("Can't release canvas!", e, LoggerDepth.ACTUAL_METHOD);
                 }
             }
         }
     }
 
     public int getWidth() {
-        synchronized (this) {
-            return width;
-        }
+        return width;
     }
 
     public int getHeight() {
-        synchronized (this) {
-            return height;
-        }
+        return height;
     }
 
     @Override
@@ -67,17 +57,13 @@ public class AbstractModel implements Callback {
             final int format,
             final int width,
             final int height) {
-        synchronized (this) {
-            this.width = width;
-            this.height = height;
-        }
+        this.width = width;
+        this.height = height;
     }
 
     @Override
     public void surfaceDestroyed(final SurfaceHolder holder) {
-        synchronized (this) {
-            this.width = -1;
-            this.height = -1;
-        }
+        this.width = -1;
+        this.height = -1;
     }
 }

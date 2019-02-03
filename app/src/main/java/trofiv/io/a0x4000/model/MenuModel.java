@@ -139,33 +139,27 @@ public class MenuModel extends AbstractModel {
     }
 
     private void alignClassicModeButton(final int width, final int height) {
-        synchronized (classicModeButton) {
-            classicModeButton.setLeft((int) (width * 0.15f));//TODO to resources
-            classicModeButton.setWidth((int) (width * 0.7f));//TODO to resources
-            classicModeButton.setTop((int) (title.bottom() + height * 0.15f));//TODO to resources
-            classicModeButton.setHeight((int) (width * 0.15f));//TODO to resources
-            classicModeButton.setRx(10);//TODO depends on size, to resources
-            classicModeButton.setRy(10);//TODO depends on size, to resources
-            final Icon icon = classicModeButton.getIcon();
-            //noinspection SynchronizationOnLocalVariableOrMethodParameter,NestedSynchronizedStatement
-            synchronized (icon) {
-                icon.setHeight((int) (classicModeButton.height() * 0.5)); //TODO to resources
-                icon.setTop((int) (classicModeButton.top()
-                        + classicModeButton.height() * 0.25)); //TODO to resources
-                icon.setLeft((int) (classicModeButton.left()
-                        + classicModeButton.height() * 0.25));//TODO to resources
-                icon.setWidth(icon.height());
-            }
-            final Label label = classicModeButton.getLabel();
-            //noinspection NestedSynchronizedStatement,SynchronizationOnLocalVariableOrMethodParameter
-            synchronized (label) {
-                label.setTextSizeForHeight(classicModeButton.height() * 0.3f);//TODO to resources
-                label.setLeft((int) (classicModeButton.left()
-                        + classicModeButton.width() / 2.0f - label.width() / 2.0f));//TODO to resources
-                label.setTop((int) (classicModeButton.top()
-                        + classicModeButton.height() * 0.35f));//TODO to resources
-            }
-        }
+        classicModeButton.setLeft((int) (width * 0.15f));//TODO to resources
+        classicModeButton.setWidth((int) (width * 0.7f));//TODO to resources
+        classicModeButton.setTop((int) (title.bottom() + height * 0.15f));//TODO to resources
+        classicModeButton.setHeight((int) (width * 0.15f));//TODO to resources
+        classicModeButton.setRx(10);//TODO depends on size, to resources
+        classicModeButton.setRy(10);//TODO depends on size, to resources
+        final Icon icon = classicModeButton.getIcon();
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter,NestedSynchronizedStatement
+        icon.setHeight((int) (classicModeButton.height() * 0.5)); //TODO to resources
+        icon.setTop((int) (classicModeButton.top()
+                + classicModeButton.height() * 0.25)); //TODO to resources
+        icon.setLeft((int) (classicModeButton.left()
+                + classicModeButton.height() * 0.25));//TODO to resources
+        icon.setWidth(icon.height());
+        final Label label = classicModeButton.getLabel();
+        //noinspection NestedSynchronizedStatement,SynchronizationOnLocalVariableOrMethodParameter
+        label.setTextSizeForHeight(classicModeButton.height() * 0.3f);//TODO to resources
+        label.setLeft((int) (classicModeButton.left()
+                + classicModeButton.width() / 2.0f - label.width() / 2.0f));//TODO to resources
+        label.setTop((int) (classicModeButton.top()
+                + classicModeButton.height() * 0.35f));//TODO to resources
     }
 
     public SimpleOnGestureListener getOnGestureListener() {
@@ -173,11 +167,9 @@ public class MenuModel extends AbstractModel {
     }
 
     private void alignTitle(final int width, final int height) {
-        synchronized (title) {
-            title.setTextSizeForWidth(width * 0.6f);//TODO to resources
-            title.setLeft((int) (width * 0.2f));//TODO to resources
-            title.setTop((int) (height * 0.15f)); //TODO to resource
-        }
+        title.setTextSizeForWidth(width * 0.6f);//TODO to resources
+        title.setLeft((int) (width * 0.2f));//TODO to resources
+        title.setTop((int) (height * 0.15f)); //TODO to resource
     }
 
     public Label getTitle() {

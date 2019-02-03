@@ -21,25 +21,23 @@ public class Label extends AbstractDrawable {
      * given width.
      */
     public void setTextSizeForWidth(final float desiredWidth) {
-        synchronized (this) {
-            // Pick a reasonably large value for the test. Larger values produce
-            // more accurate results, but may cause problems with hardware
-            // acceleration. But there are workarounds for that, too; refer to
-            // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
-            final float testTextSize = 96.0f;
-            // Get the bounds of the text, using our testTextSize.
-            style.setTextSize(testTextSize);
-            style.getTextBounds(text, 0, text.length(), bounds);
-            // Calculate the desired size as a proportion of our testTextSize.
-            final float desiredTextSize = testTextSize * desiredWidth / bounds.width();
-            // Set the paint for that size.
-            style.setTextSize(desiredTextSize);
-            style.getTextBounds(text, 0, text.length(), bounds);
-            this.setHeight(bounds.height());
-            this.setWidth(bounds.width());
-            xPosCorrection = bounds.left;
-            yPosCorrection = bounds.bottom;
-        }
+        // Pick a reasonably large value for the test. Larger values produce
+        // more accurate results, but may cause problems with hardware
+        // acceleration. But there are workarounds for that, too; refer to
+        // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
+        final float testTextSize = 96.0f;
+        // Get the bounds of the text, using our testTextSize.
+        style.setTextSize(testTextSize);
+        style.getTextBounds(text, 0, text.length(), bounds);
+        // Calculate the desired size as a proportion of our testTextSize.
+        final float desiredTextSize = testTextSize * desiredWidth / bounds.width();
+        // Set the paint for that size.
+        style.setTextSize(desiredTextSize);
+        style.getTextBounds(text, 0, text.length(), bounds);
+        this.setHeight(bounds.height());
+        this.setWidth(bounds.width());
+        xPosCorrection = bounds.left;
+        yPosCorrection = bounds.bottom;
     }
 
     /**
@@ -47,55 +45,43 @@ public class Label extends AbstractDrawable {
      * given height.
      */
     public void setTextSizeForHeight(final float desiredHeight) {
-        synchronized (this) {
-            // Pick a reasonably large value for the test. Larger values produce
-            // more accurate results, but may cause problems with hardware
-            // acceleration. But there are workarounds for that, too; refer to
-            // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
-            final float testTextSize = 96.0f;
-            // Get the bounds of the text, using our testTextSize.
-            style.setTextSize(testTextSize);
-            style.getTextBounds(text, 0, text.length(), bounds);
-            // Calculate the desired size as a proportion of our testTextSize.
-            final float desiredTextSize = testTextSize * desiredHeight / bounds.height();
-            // Set the paint for that size.
-            style.setTextSize(desiredTextSize);
-            style.getTextBounds(text, 0, text.length(), bounds);
-            this.setHeight(bounds.height());
-            this.setWidth(bounds.width());
-            xPosCorrection = bounds.left;
-            yPosCorrection = bounds.bottom;
-        }
+        // Pick a reasonably large value for the test. Larger values produce
+        // more accurate results, but may cause problems with hardware
+        // acceleration. But there are workarounds for that, too; refer to
+        // http://stackoverflow.com/questions/6253528/font-size-too-large-to-fit-in-cache
+        final float testTextSize = 96.0f;
+        // Get the bounds of the text, using our testTextSize.
+        style.setTextSize(testTextSize);
+        style.getTextBounds(text, 0, text.length(), bounds);
+        // Calculate the desired size as a proportion of our testTextSize.
+        final float desiredTextSize = testTextSize * desiredHeight / bounds.height();
+        // Set the paint for that size.
+        style.setTextSize(desiredTextSize);
+        style.getTextBounds(text, 0, text.length(), bounds);
+        this.setHeight(bounds.height());
+        this.setWidth(bounds.width());
+        xPosCorrection = bounds.left;
+        yPosCorrection = bounds.bottom;
     }
 
     public Paint getStyle() {
-        synchronized (this) {
-            return style;
-        }
+        return style;
     }
 
     public Rect getBounds() {
-        synchronized (this) {
-            return bounds;
-        }
+        return bounds;
     }
 
     public String getText() {
-        synchronized (this) {
-            return text;
-        }
+        return text;
     }
 
     public void setText(final String text) {
-        synchronized (this) {
-            this.text = text;
-        }
+        this.text = text;
     }
 
     @Override
     public void draw(final Canvas canvas) {
-        synchronized (this) {
-            canvas.drawText(text, left() - xPosCorrection, bottom() - yPosCorrection, style);
-        }
+        canvas.drawText(text, left() - xPosCorrection, bottom() - yPosCorrection, style);
     }
 }

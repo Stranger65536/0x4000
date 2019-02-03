@@ -29,118 +29,84 @@ public class Button extends AbstractDrawable {
     }
 
     public Paint getBackgroundStyle() {
-        synchronized (this) {
-            return backgroundStyle;
-        }
+        return backgroundStyle;
     }
 
     public Paint getCurrentBackgroundStyle() {
-        synchronized (this) {
-            return currentBackgroundStyle;
-        }
+        return currentBackgroundStyle;
     }
 
     public Paint getBackgroundHoverStyle() {
-        synchronized (this) {
-            return backgroundHoverStyle;
-        }
+        return backgroundHoverStyle;
     }
 
     public void setAnimator(final ValueAnimator animator) {
-        synchronized (this) {
-            this.animator = animator;
-        }
+        this.animator = animator;
     }
 
     public long getTransitionDuration() {
-        synchronized (this) {
-            return transitionDuration;
-        }
+        return transitionDuration;
     }
 
     public void setTransitionDuration(final long transitionDuration) {
-        synchronized (this) {
-            this.transitionDuration = transitionDuration;
-        }
+        this.transitionDuration = transitionDuration;
     }
 
     public Label getLabel() {
-        synchronized (this) {
-            return label;
-        }
+        return label;
     }
 
     public void setLabel(final Label label) {
-        synchronized (this) {
-            this.label = label;
-        }
+        this.label = label;
     }
 
     public Icon getIcon() {
-        synchronized (this) {
-            return icon;
-        }
+        return icon;
     }
 
     public void setIcon(final Icon icon) {
-        synchronized (this) {
-            this.icon = icon;
-        }
+        this.icon = icon;
     }
 
     public float getRx() {
-        synchronized (this) {
-            return rx;
-        }
+        return rx;
     }
 
     public void setRx(final float rx) {
-        synchronized (this) {
-            this.rx = rx;
-        }
+        this.rx = rx;
     }
 
     public float getRy() {
-        synchronized (this) {
-            return ry;
-        }
+        return ry;
     }
 
     public void setRy(final float ry) {
-        synchronized (this) {
-            this.ry = ry;
-        }
+        this.ry = ry;
     }
 
     public void onButtonPressAnimation() {
-        synchronized (this) {
-            if (animator.isRunning()) {
-                animator.reverse();
-            } else {
-                animator.start();
-            }
+        if (animator.isRunning()) {
+            animator.reverse();
+        } else {
+            animator.start();
         }
     }
 
     public void onButtonBlurAnimation() {
-        synchronized (this) {
-            if (animator.isRunning() || Math.abs(animator
-                    .getAnimatedFraction() - 1.0f) < EPSILON) {
-                animator.reverse();
-            }
+        if (animator.isRunning() || Math.abs(animator
+                .getAnimatedFraction() - 1.0f) < EPSILON) {
+            animator.reverse();
         }
     }
 
     @Override
     public void draw(final Canvas canvas) {
-        synchronized (this) {
-            canvas.drawRoundRect(left(), top(), right(), bottom(), rx, ry, currentBackgroundStyle);
-            if (icon != null) {
-                icon.draw(canvas);
-            }
-            if (label != null) {
-                label.draw(canvas);
-            }
+        canvas.drawRoundRect(left(), top(), right(), bottom(), rx, ry, currentBackgroundStyle);
+        if (icon != null) {
+            icon.draw(canvas);
+        }
+        if (label != null) {
+            label.draw(canvas);
         }
     }
 }

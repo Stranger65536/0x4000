@@ -12,30 +12,22 @@ public class Icon extends AbstractDrawable {
     }
 
     public Paint getStyle() {
-        synchronized (this) {
-            return style;
-        }
+        return style;
     }
 
     public android.graphics.drawable.Drawable getDrawable() {
-        synchronized (this) {
-            return drawable;
-        }
+        return drawable;
     }
 
     public void setDrawable(final android.graphics.drawable.Drawable drawable) {
-        synchronized (this) {
-            this.drawable = drawable;
-        }
+        this.drawable = drawable;
     }
 
     @Override
     public void draw(final Canvas canvas) {
-        synchronized (this) {
-            if (drawable != null) {
-                drawable.setBounds(getLeft(), getTop(), getLeft() + getWidth(), getTop() + getHeight());
-                drawable.draw(canvas);
-            }
+        if (drawable != null) {
+            drawable.setBounds(getLeft(), getTop(), getLeft() + getWidth(), getTop() + getHeight());
+            drawable.draw(canvas);
         }
     }
 }
